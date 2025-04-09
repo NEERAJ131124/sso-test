@@ -48,6 +48,8 @@ jobs:
           api_location: "" # Api source code path - optional
           output_location: ".next" # Built app content directory
           github_id_token: ${{ steps.idtoken.outputs.result }}
+          install_command: "npm install --force" # Force install dependencies
+
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
