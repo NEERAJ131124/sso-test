@@ -1,14 +1,16 @@
-import { redirect } from "next/navigation"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@/lib/auth"
-import Dashboard from "@/components/dashboard"
+"use client";
+import { useSession, signOut } from "next-auth/react";
 
-export default async function DashboardPage() {
-  const session = await getServerSession(authOptions)
+export default function Dashboard() {
+  const { data: session } = useSession();
 
-  if (!session) {
-    redirect("/")
-  }
+  if (!session) return <p>Not logged in</p>;
 
-  return <Dashboard user={session.user} />
+  return (
+    <div>
+      <p>Welcome {session.user?.name}</p>
+      <button onClick={() => signOut()}>Sign out</button>
+    </div>
+
+  );
 }
